@@ -1,4 +1,4 @@
-package com.example.hospitalsystem;
+package com.example.p;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
@@ -6,10 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.io.IOException;
 
 import java.io.*;
 
@@ -43,7 +39,7 @@ public class Nurse implements Serializable{
         return number;
     }
 
-//
+    //
 //    public void Record_Vitals(Patient p, Vitals v){
 //        p.vital = v;
 //    }
@@ -52,66 +48,28 @@ public class Nurse implements Serializable{
 //        p.medicalHistory.add(s);
 //    }
 //
-    public void messagePatient(String pfn, String lfn, String message){
-        String filePath = pfn+lfn+"_Messages.txt";
-        // Create a Path object
-        Path path = Paths.get(filePath);
-
-        // Check if the file exists
-        if (!Files.exists(path)) {
-            try {
-                // Create the file
-                Files.createFile(path);
-                System.out.println("File created successfully.");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("File already exists.");
-        }
-
-        // Define the path to the file
-
-        // Write the string to the file
-        message = "\nNurse : " + message + "\n";
-        try {
-            Path pathp = Paths.get(filePath);
-            Files.writeString(pathp, message);
-            System.out.println("String written to file successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        filePath = firstName+lastName+"_Messages.txt";
-        // Create a Path object
-        path = Paths.get(filePath);
-
-        // Check if the file exists
-        if (!Files.exists(path)) {
-            try {
-                // Create the file
-                Files.createFile(path);
-                System.out.println("File created successfully.");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("File already exists.");
-        }
-
-        // Define the path to the file
-
-        // Write the string to the file
-        message = "\nNurse : " + message + "\n";
-        try {
-            Path pathp = Paths.get(filePath);
-            Files.writeString(pathp, message);
-            System.out.println("String written to file successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
+//    public void messagePatient(String pfn, String lfn, String message){
+//        String checkerfilename = pfn+lfn+"_Messages.txt";
+//        File filename = new File(checkerfilename);
+//        if(!filename.exists()){
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.setTitle("Error");
+//            alert.setHeaderText("Such patient doesn't exist");
+//            alert.setContentText("Check patient First Name and Last Name");
+//            alert.showAndWait();
+//            return;
+//        }
+//
+//        try {
+//            FileWriter writer = new FileWriter(filename);
+//            writer.write("\n ");
+//            writer.write("nurse : " + message +" \n");
+//            writer.close();
+//        }
+//        catch (IOException er){
+//            System.out.println("An error has occurred.");
+//        }
+//    }
 //
     public void callPatient(Patient p){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -120,34 +78,28 @@ public class Nurse implements Serializable{
         alert.showAndWait();
     }
 //
-    public void seeMessage(TextArea ta){
-        String filePath = firstName+lastName+"_Messages.txt";
-                // Create a Path object
-        Path path = Paths.get(filePath);
+//    public void seeMessage(String pfn, String lfn, TextArea ta){
+//        String checkerfilename = pfn+lfn+"_Messages.txt";
+//        File filename = new File(checkerfilename);
+//        if(!filename.exists()){
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.setTitle("Error");
+//            alert.setHeaderText("Such patient doesn't exist");
+//            alert.setContentText("Check patient First Name and Last Name");
+//            alert.showAndWait();
+//            return;
+//        }
+//        try {
+//            // Read the content of the file into a String
+//            String content = Files.readString(Paths.get(checkerfilename));
+//            // Display the content
+//            ta.setText(content);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-                // Check if the file exists
-        if (!Files.exists(path)) {
-            try {
-                // Create the file
-                Files.createFile(path);
-                System.out.println("File created successfully.");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("File already exists.");
-        }
 
-        // Read the content of the file into a String variable
-        String content = "";
-        try {
-            content = Files.readString(Paths.get(filePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        ta.setText(content);
 
-    }
 }
-

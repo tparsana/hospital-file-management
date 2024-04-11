@@ -1,4 +1,4 @@
-package com.example.hospitalsystem;
+package com.example.p;
 
 import javafx.application.Application;
 
@@ -8,7 +8,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -62,15 +61,9 @@ public class NurseScreen extends Application {
         Label contactinfo = new Label("Contact Info");
 //        String number = "9999999999";
         Label contact = new Label("Your number : " + nurse.getNumber());
-        Label to = new Label("TO : ");
-        TextField totf = new TextField();
-        Label message = new Label("Message : ");
-        TextField mtf = new TextField();
-        Button send = new Button("Send");
-        Label previous = new Label("Past Messages : ");
-        TextArea pmta = new TextArea();
-//        nurse.seeMessage(nurse.getFirstName(), nurse.getLastName(), pmta);
-        contactvbox.getChildren().addAll( contactinfo, contact, to, totf, message, mtf, send, previous, pmta);
+        Button messages = new Button("Messages");
+
+        contactvbox.getChildren().addAll( contactinfo, contact, messages);
         /////////////////////////////////////////////////
 
         // Book Appointment //////////////////////////////////////
@@ -182,24 +175,24 @@ public class NurseScreen extends Application {
         submitPatient.setOnAction(e -> {
             setPatient(deserializeP(pfntf.getText()+plntf.getText()+pdatePicker.getValue().toString()+".ser"));
             if (patient!=null){
-                        pcontactinfotf.setText(String.valueOf(patient.getContactNumber()));
-                        visitSummary.setText(patient.getMedicalHistory());
-                        allergyList.setText(patient.getAllergy());
-                        if (patient.getVitals()!=null){
-                            pagetf.setText(String.valueOf(patient.getVitals().getAge()));
-                            pheighttf.setText(String.valueOf(patient.getVitals().getHeight()));
-                            pweighttf.setText(String.valueOf(patient.getVitals().getHeight()));
-                            pbptf.setText(String.valueOf(patient.getVitals().getBloodPressure()));
-                            ptemptf.setText(String.valueOf(patient.getVitals().getBodyTemperature()));
-                        }
-                        if (patient.getVisitSummary()!=null){
-                            String s = "Previous Visits:\n";
-                            for (int j=0; j < patient.getVisitSummary().size(); j++){
-                                s = s + patient.getVisitSummary().get(j).printSummary();
-                                s = s + "\n";
-                            }
-                            visitSummary.setText(s);
-                        }
+                pcontactinfotf.setText(String.valueOf(patient.getContactNumber()));
+                visitSummary.setText(patient.getMedicalHistory());
+                allergyList.setText(patient.getAllergy());
+                if (patient.getVitals()!=null){
+                    pagetf.setText(String.valueOf(patient.getVitals().getAge()));
+                    pheighttf.setText(String.valueOf(patient.getVitals().getHeight()));
+                    pweighttf.setText(String.valueOf(patient.getVitals().getHeight()));
+                    pbptf.setText(String.valueOf(patient.getVitals().getBloodPressure()));
+                    ptemptf.setText(String.valueOf(patient.getVitals().getBodyTemperature()));
+                }
+                if (patient.getVisitSummary()!=null){
+                    String s = "Previous Visits:\n";
+                    for (int j=0; j < patient.getVisitSummary().size(); j++){
+                        s = s + patient.getVisitSummary().get(j).printSummary();
+                        s = s + "\n";
+                    }
+                    visitSummary.setText(s);
+                }
             } else {
                 setPatient(new Patient(pfntf.getText(), plntf.getText(), pdatePicker.getValue(), Integer.parseInt(pcontactinfotf.getText())));
                 serializeP(patient);
@@ -207,13 +200,13 @@ public class NurseScreen extends Application {
         });
 
         submit.setOnAction(e -> {
-           if (patient!=null){
-               patient.setVitals(new Vitals(Double.parseDouble(pweighttf.getText()), Double.parseDouble(pheighttf.getText()),
-                       Double.parseDouble(ptemptf.getText()), Double.parseDouble(pbptf.getText()), Integer.parseInt(pagetf.getText())));
-               patient.setAllergy(allergyList.getText());
-               serializeP(patient);
+            if (patient!=null){
+                patient.setVitals(new Vitals(Double.parseDouble(pweighttf.getText()), Double.parseDouble(pheighttf.getText()),
+                        Double.parseDouble(ptemptf.getText()), Double.parseDouble(pbptf.getText()), Integer.parseInt(pagetf.getText())));
+                patient.setAllergy(allergyList.getText());
+                serializeP(patient);
 
-           }
+            }
         });
 
         rvbox.getChildren().addAll(mainscreen, personalinfogp, submitPatient, rhbox, submit, visitSummary);
