@@ -1,3 +1,4 @@
+//This is the doctor screen
 package com.example.doctor;
 
 import javafx.application.Application;
